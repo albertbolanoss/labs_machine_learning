@@ -19,6 +19,11 @@ source .venv/bin/activate           # for linux
 .venv/Scripts/activate              # for windows
 ```
 
+### Commands
+```sh
+jupyter nbconvert --to python notebooks/[notebook].ipynb          # Export code from notebook to python script: 
+```
+
 ## References
 
 1. [Kaggle free datasets provider](https://www.kaggle.com/datasets)

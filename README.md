@@ -20,8 +20,10 @@ source .venv/bin/activate           # for linux
 ```
 
 ### Commands
+
 ```sh
 jupyter nbconvert --to python notebooks/[notebook].ipynb          # Export code from notebook to python script: 
+pip freeze > requirements.txt					  # Define dependencies
 ```
 
 ## References

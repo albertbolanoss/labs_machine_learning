@@ -24,6 +24,7 @@ source .venv/bin/activate           # for linux
 ```sh
 jupyter nbconvert --to python notebooks/[notebook].ipynb          # Export code from notebook to python script: 
 pip freeze > requirements.txt					  # Define dependencies
+py notebooks/hyderabad_house_price/app/model_endpoint.py     	  # Run Model endpoint
 ```
 
 ## References

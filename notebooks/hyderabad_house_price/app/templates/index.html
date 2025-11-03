@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicción de Precios de Inmuebles</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 20px; background-color: #f4f7f6; }
+        .container { max-width: 800px; margin: auto; background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        h1, h2 { color: #333; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        form { margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; }
+        input[type="number"], select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        .checkbox-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+        .checkbox-item { display: flex; align-items: center; }
+        .checkbox-item input { margin-right: 8px; }
+        button { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #0056b3; }
+        .prediction-result { font-size: 24px; font-weight: bold; color: #28a745; margin-top: 20px; text-align: center; background: #e9f7ef; padding: 15px; border-radius: 5px; }
+        .error { color: #dc3545; background: #f8d7da; padding: 10px; border-radius: 5px; }
+        hr { border: 0; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏡 Simulador de Precios de Inmuebles</h1>
+
+        {% if prediction_text %}
+            <div class="prediction-result">{{ prediction_text }}</div>
+        {% endif %}
+        {% if csv_error %}
+            <div class="error">{{ csv_error }}</div>
+        {% endif %}
+
+        <hr>
+
+        <h2>Predecir Manualmente</h2>
+        <form action="/predict" method="POST">
+            <div class="form-group">
+                <label for="Area">Área (en pies cuadrados)</label>
+                <input type="number" id="Area" name="Area" value="1000" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="No. of Bedrooms">Número de Habitaciones</label>
+                <input type="number" id="No. of Bedrooms" name="No. of Bedrooms" value="2" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Location">Ubicación</label>
+                <select id="Location" name="Location">
+                    {% for loc in locations %}
+                        <option value="{{ loc }}">{{ loc }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Amenidades y Características (Marcar si aplica)</label>
+                <div class="checkbox-grid">
+                    {% for col in checkbox_cols %}
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="{{ col }}" name="{{ col }}">
+                        <label for="{{ col }}">{{ col }}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <button type="submit">Predecir Precio</button>
+        </form>
+
+        <hr>
+
+        <h2>Predecir desde Archivo CSV</h2>
+        <p>Sube un archivo CSV que contenga exactamente las columnas: <strong>Area, No. of Bedrooms, Location, {{ checkbox_cols|join(', ') }}</strong>.</p>
+        
+        <form action="/predict_csv" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Archivo CSV</label>
+                <input type="file" id="file" name="file" accept=".csv" required>
+            </div>
+            <button type="submit">Subir y Predecir</button>
+        </form>
+    </div>
+</body>
+</html>

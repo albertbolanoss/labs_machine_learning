@@ -17,8 +17,8 @@ class ColumnInfo:
         self.format_str = format_str
 
 class Column:
-    PRICE = ColumnInfo("Price", "The price of the house.", np.int64, format_str='$ {:,.4f}')
-    AREA = ColumnInfo("Area", "The area of the property in square feet.", np.int64, format_str='{:,.0f}')
+    PRICE = ColumnInfo("Price", "The price of the house in Indian Rupee (INR).", np.int64, format_str='$ {:,.4f}')
+    AREA = ColumnInfo("Area", "The area of the property in square feet (ft²).", np.int64, format_str='{:,.0f}')
     LOCATION = ColumnInfo("Location", "The neighborhood in Hyderabad.", str)
     NO_OF_BEDROOMS = ColumnInfo("No. of Bedrooms", "The number of bedrooms.", np.int64, format_str='{:.0f}')
     RESALE = ColumnInfo("Resale", "A binary flag indicating if the property is for resale.", np.int64, format_str='{:.0f}')

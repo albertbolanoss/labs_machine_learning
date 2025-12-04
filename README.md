@@ -29,34 +29,42 @@ py notebooks/hyderabad_house_price/app/model_endpoint.py     	  # Run Model endp
 
 ### Data version control
 
+#### Set up the data control version repository
 ```sh
 # Install and init the data control version
-pip install "dvc[s3]"
-dvc init
+pip install dvc                 # Install data version control
+pip install dvc-s3              # Install data version control for aws s3
 
 
-pip install dvc-s3
-dvc add datasets
-dvc remote add -d storage s3://labsdatasets/housing-prices
+dvc init                                                    # Init the data version control track
+dvc remote add -d storage s3://labsdatasets/housing-prices  # Set up the S3 bucket (require authentication with aws cli)
 ```
 
-#### Create a tag version
+#### Add a data version and push it.
 
 ```sh
+# Add and push a new data version
 dvc add datasets
 dvc push
+
+# Commit and push in Github
 git add .
 git commit -m "Version #"
 git push
-git tag -a v1 -m "Version 1"
-
 ```
 
+#### Download the data from repository
 ```sh
 dvc pull
 ```
 
-dvc add datasets/
+#### Tag in Github
+```sh
+git checkout main
+git tag -a v1 -m "Version #"
+git push origin --tags
+```
+
 
 ## References
 

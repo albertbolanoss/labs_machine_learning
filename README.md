@@ -27,6 +27,37 @@ pip freeze > requirements.txt					  # Define dependencies
 py notebooks/hyderabad_house_price/app/model_endpoint.py     	  # Run Model endpoint
 ```
 
+### Data version control
+
+```sh
+# Install and init the data control version
+pip install dvc
+pip install "dvc[gdrive]"
+dvc init
+dvc add datasets
+
+pip install "dvc[s3]"
+dvc remote add -d storage s3://labsdatasets/housing-prices
+```
+
+#### Create a tag version
+
+```sh
+dvc add datasets
+dvc push
+git add .
+git commit -m "Version #"
+git push
+git tag -a v1 -m "Version 1"
+
+```
+
+```sh
+dvc pull
+```
+
+dvc add datasets/
+
 ## References
 
 1. [Kaggle free datasets provider](https://www.kaggle.com/datasets)

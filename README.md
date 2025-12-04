@@ -31,12 +31,12 @@ py notebooks/hyderabad_house_price/app/model_endpoint.py     	  # Run Model endp
 
 ```sh
 # Install and init the data control version
-pip install dvc
-pip install "dvc[gdrive]"
-dvc init
-dvc add datasets
-
 pip install "dvc[s3]"
+dvc init
+
+
+pip install dvc-s3
+dvc add datasets
 dvc remote add -d storage s3://labsdatasets/housing-prices
 ```
 
